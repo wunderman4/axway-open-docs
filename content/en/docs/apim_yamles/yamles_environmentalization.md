@@ -1,9 +1,9 @@
 {
 "title": "Environmentalize your YAML configuration",
-"linkTitle": "Environmentalize your YAML configuration",
-"weight":"50",
-"date": "2020-09-24",
-"description": "Learn how to environmentalize your YAML configuration."
+  "linkTitle": "Environmentalize your YAML configuration",
+  "weight": "50",
+  "date": "2020-09-24",
+  "description": "Learn how to environmentalize your YAML configuration."
 }
 
 The XML federated configuration provides several ways to environmentalize parts of the configuration. See [Environmentalize configuration](/docs/apigtw_devops/promotion_arch/#environmentalize-configuration) for details.
@@ -278,6 +278,34 @@ _1_Services:
 validation_schemas:
    1_user: http://acme.com/schemas/users
    2_group: http://acme.com/schemas/group
+```
+
+### Escaping simple-quote characters in values.yaml
+
+A particular attention has to be taken when writing strings containing single-quotes. Depending on the format used:
+
+* `double-quote enclosed string` you have to use 2 single-quotes
+* `single-quote enclosed string` you have to use 4 single-quotes
+
+This is to be applied if you e18n placeholder is surrounded by single-quotes. Such as:
+
+```yaml
+fields:
+  url: '{{ foo.bar.url.value }}'
+```
+
+Examples:
+
+If you want to set `value` with `a message with 'single quotes'`, you can use:
+
+```yaml
+value: "a message with ''single quotes'' "
+```
+
+or
+
+```yaml
+value: 'a message with ''''single quotes'''' '
 ```
 
 ## Environmentalization in `values.yaml`
