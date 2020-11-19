@@ -23,7 +23,7 @@ Getting assets into your environment is a process that you will have to do at le
     * [Agent docs for API Manager V7](/docs/central/connect-api-manager/)
     * [Agent docs for AWS Gateway](/docs/central/connect-aws-gateway/)
 * Manual Sync
-    * Environment assets need to be updated manually through the [AMPLIFY Central cli](/docs/central/cli_getstarted/), changes in your deployment will not be automatically synced with Central.
+    * Environment assets need to be updated manually through the [AMPLIFY Central cli](/docs/central/cli_central/), changes in your deployment will not be automatically synced with Central.
 
 ---
 
