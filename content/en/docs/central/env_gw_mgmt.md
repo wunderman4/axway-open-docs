@@ -18,12 +18,12 @@ Within Topology, Environments are at the highest scope level. All assets within 
 
 Getting assets into your environment is a process that you will have to do at least once and depending on how quickly those assets evolve over their lifecycle, may need to be updated quite frequently. To automate the discovery of assets and keep discovered assets up to date, Agents were created which handle this process and other advanced functionality.
 
--   Connected
-    -   Agents are installed in your environment which handles the discovery of assets.
-    -   [Agent docs for API Manager V7](/docs/central/connect-api-manager/)
-    -   [Agent docs for AWS Gateway](/docs/central/connect-aws-gateway/)
--   Manual Sync
-    -   Environment assets need to be updated manually through the [AMPLIFY Central cli](/docs/central/cli_getstarted/), changes in your deployment will not be automatically synced with Central.
+* Connected
+    * Agents are installed in your environment which handles the discovery of assets.
+    * [Agent docs for API Manager V7](/docs/central/connect-api-manager/)
+    * [Agent docs for AWS Gateway](/docs/central/connect-aws-gateway/)
+* Manual Sync
+    * Environment assets need to be updated manually through the [AMPLIFY Central cli](/docs/central/cli_getstarted/), changes in your deployment will not be automatically synced with Central.
 
 ---
 
