@@ -31,6 +31,8 @@ Getting assets into your environment is a process that you will have to do at le
 
 ### Services
 
+![AMPLIFY Central Service Details](/Images/central/env_and_gateway_mgmt/ServiceDetailsPage.png)
+
 Service assets are the primary asset within an environment. These services can take many shapes (API, MTF, Protobuff, docs, etc) and can be added manually or managed by Axway agents. Either way, the intent of a service is to represent a physical deployment of a resource. Later, these services can be combined and packaged together to create catalog items (products) for your consumers to access.
 
 #### Versions
