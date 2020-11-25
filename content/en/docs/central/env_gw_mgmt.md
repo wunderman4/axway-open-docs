@@ -18,12 +18,12 @@ Within Topology, Environments play a key role in maintaining the integrity of th
 
 Getting assets into your environment is a process that you will have to do at least once and depending on how quickly those assets evolve over their lifecycle, may need to be updated quite frequently. To automate the discovery of assets and keep discovered assets up to date, Agents were created which handle this process and other advanced functionality.
 
-* Connected
-    * Agents are installed in your environment to handle the discovery of assets or to send log information about APIs to AMPLIFY Central.
-    * [Agent docs for API Manager V7](/docs/central/connect-api-manager/)
-    * [Agent docs for AWS Gateway](/docs/central/connect-aws-gateway/)
-* Manual Sync
-    * Environment assets can be updated manually through the [AMPLIFY Central CLI](/docs/central/cli_getstarted/) or the AMPLIFY Central APIs, changes in your deployment will not be automatically synced with Central.
+-   Connected
+    -   Agents are installed in your environment to handle the discovery of assets or to send log information about APIs to AMPLIFY Central.
+    -   [Agent docs for API Manager V7](/docs/central/connect-api-manager/)
+    -   [Agent docs for AWS Gateway](/docs/central/connect-aws-gateway/)
+-   Manual Sync
+    -   Environment assets can be updated manually through the [AMPLIFY Central CLI](/docs/central/cli_getstarted/) or the AMPLIFY Central APIs, changes in your deployment will not be automatically synced with Central.
 
 ---
 
@@ -43,7 +43,7 @@ Since services represent a physical deployment, you need a way to associate the 
 
 #### Catalog Items
 
-Contains all the discoverable and consumable APIs available in Unified Catalog, to which consumers can subscribe. For more information about the catalog please see [AMPLIFY Unified Catalog(/docs/catalog/).
+Contains all the discoverable and consumable APIs available in Unified Catalog, to which consumers can subscribe. For more information about the catalog please see [AMPLIFY Unified Catalog](/docs/catalog/).
 
 ---
 
