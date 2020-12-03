@@ -39,7 +39,7 @@ For more information on agents, please see:
 
 * [Discovery and Traceability Agents for AWS Gateway](/docs/central/connect-aws-gateway/).
 
-To manually synchronize your environment, you can use the [AMPLIFY Central CLI](/docs/central/central_cli/cli_apiservices) or the [AMPLIFY Central APIs](https://apicentral.axway.com/apis/docs). Note that changes in your deployment will not be automatically synchronized with AMPLIFY Central.
+To manually synchronize your environment, you can use the [AMPLIFY Central CLI](/docs/central/cli_central/cli_apiservices) or the [AMPLIFY Central APIs](https://apicentral.axway.com/apis/docs). Note that changes in your deployment will not be automatically synchronized with AMPLIFY Central.
 
 ## Asset definitions
 
