@@ -1,6 +1,6 @@
 ---
-title: Manage your environments
-linkTitle: Manage your environments
+title: Manage your Environments and Gateways
+linkTitle: Manage your Environments and Gateways
 weight: 15
 date: 2020-11-18
 description: Understand environments in a topology, what are they, what are they for, what can you do with them.
@@ -8,44 +8,54 @@ description: Understand environments in a topology, what are they, what are they
 
 {{< alert title="Public beta" color="warning" >}}This feature is currently in **public beta** and not yet available for production use.{{< /alert >}}
 
-Within topology, environments help to maintain the integrity of the catalog by grouping a set of assets that are discovered from or belong to a similar source.
+## Overview
 
-Environments are at the highest hierarchical level in the topology, and they can represent assets discovered from a runtime environment, a repository, or things manually added to the catalog. Assets are linked to an environment, which allows you to control them as a group. For example, if you delete an environment, all assets scoped within will also be deleted. Another example, you can configure a customized subscription flow for all assets in a group published in the catalog using the same webhook and secret.
+Within topology, Environments represent a group of assets discovered from a gateway, a repository, or anything manually added to the environment. These grouped assets (ie services, webhooks, secrets, etc.) are then displayed in AMPLIFY Central. Environments are at the highest hierarchical level, and all assets are scoped within. For example, below is a simple environment with an API service asset.
 
-The following image shows the details of an environment in AMPLIFY Central.
+### Environment Structure
 
-![AMPLIFY Central Environment Details](/Images/central/env_and_gateway_mgmt/EnvironmentDetailsPage.png)
+```txt
+* Environment
+    * Service
+        * Versions
+            * Endpoints
+    * Webhooks
+    * Secrets
+```
 
-## Synchronize your environment
+The Services, Webhooks, and Secrets above all have a hard dependency to the environment. _If the environment is deleted all assets within the environment will also be deleted._ The same hard dependency applies to all child assets. Another example, If the version within the service is deleted the endpoint will also be deleted but not the service.
 
-After you add assets to your environment, you can use agents to automate the discovery of assets and keep discovered assets up-to-date, or you can do it manually.
+The relationship between Service Assets, Webhooks, and Secrets is a soft dependency. If a Webhook is deleted neither of the other two will be affected. However, this may break integrations where the webhook was being used i.e. in a catalog item.
 
-To sync your environment automatically, you must install the agents in your environment and they will handle the discovery of assets and send log information about APIs to AMPLIFY Central. For more information, see:
+Assets within an environment can be combined to create catalog items that consumers can then subscribe to and use.
 
-* [Discovery and Traceability Agents for API Manager](/docs/central/connect-api-manager/).
-* [Discovery and Traceability Agents for AWS Gateway](/docs/central/connect-aws-gateway/).
+## Synchronize your environment with a gateway
 
-To manually sync your environment, you can use the [AMPLIFY Central CLI](/docs/central/cli_getstarted/) or the AMPLIFY Central APIs. Note that changes in your deployment will not be automatically synced with AMPLIFY Central.
+Using agents is the recommended way to add service assets to your environment. When a discovery agent is installed on your gateway it will auto-discover service assets and add them to your environment in AMPLIFY Central. The traceability agent will send API traffic logs from your gateway to AMPLIFY Central, where you can then view and analyze it.
+
+For more information on agents, please see:
+
+-   [Discovery and Traceability Agents for API Manager](/docs/central/connect-api-manager/).
+
+-   [Discovery and Traceability Agents for AWS Gateway](/docs/central/connect-aws-gateway/).
+
+To manually synchronize your environment, you can use the [AMPLIFY Central CLI](/docs/central/central_cli/cli_apiservices) or the [AMPLIFY Central APIs](https://apicentral.axway.com/apis/docs). Note that changes in your deployment will not be automatically synchronized with AMPLIFY Central.
 
 ## Asset definitions
 
-This section provides a description of the assets that you can use on your environment.
+This section describes the assets that are represented in your environment.
 
 ### Services
 
-A service represents a physical deployment of a resource in an environment. Examples of services are: API, MFT, Protobuf, documentation, and so on. You can manually add services to your environment or they can be discovered and auto-added by Axway agents. Later, these services can be combined and packaged together to create catalog items (products) for your consumers to access.
+A service represents a physical deployment of a resource in an environment. Examples of services include API, MFT, Protobuf, documentation, and so on. You can manually add services to your environment or they can be discovered and auto-added by Axway agents. Later, these services can be combined and packaged together to create catalog items for your consumers to access.
 
 #### Versions
 
-Services have a specification based on type (OAS3, WSDL, Protobuf, and so on). Whenever this specification changes a new version must be created. This helps account for different stages in the lifecycle of the service. Each version has a direct dependency on their associated services and are able to be individually configured for differing consumer access needs.
+Services have a specification based on type (OAS2, OAS3, WSDL, Protobuf, etc). Whenever this specification changes a new version must be created. This helps account for different stages in the lifecycle of the service. Each version has a direct dependency on its associated services and can be individually configured for differing consumer access needs.
 
 #### Endpoints
 
-Since services represent a physical deployment, you need a way to associate the specification found in the version to the actual endpoint. Endpoints contain the host and port information used to access the service. Endpoints have a hard dependency on their associated versions.
-
-#### Catalog items
-
-Contains all the discoverable and consumable APIs available in the [AMPLIFY Unified Catalog](/docs/catalog/), to which consumers can subscribe.
+An endpoint is a URL that represents the deployment of a service. There can be one or many endpoints to access a deployed service version. An endpoint includes a name and description to make it easier for others to consume later. They also contain the host and port information used to access the service and have a hard dependency on the service version it is associated with.
 
 ### Webhooks
 
