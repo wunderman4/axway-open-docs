@@ -1,18 +1,16 @@
 ---
-title: Manage your Environments and Gateways
-linkTitle: Manage your Environments and Gateways
+title: Manage your environments and gateways
+linkTitle: Manage your environments and gateways
 weight: 15
 date: 2020-11-18
-description: Understand environments in a topology, what are they, what are they for, what can you do with them.
+description: Understand environments in a topology, what they are, and what can you do with them.
 ---
 
 {{< alert title="Public beta" color="warning" >}}This feature is currently in **public beta** and not yet available for production use.{{< /alert >}}
 
-## Overview
+Within topology, environments represent a group of assets discovered from a gateway, a repository, or anything manually added to the environment. These grouped assets (for example, services, webhooks, secrets) are displayed in AMPLIFY Central. Environments are at the highest hierarchical level, and all assets are scoped within.
 
-Within topology, Environments represent a group of assets discovered from a gateway, a repository, or anything manually added to the environment. These grouped assets (ie services, webhooks, secrets, etc.) are then displayed in AMPLIFY Central. Environments are at the highest hierarchical level, and all assets are scoped within. For example, below is a simple environment with an API service asset.
-
-### Environment Structure
+The following is an example of a simple environment with an API service asset:
 
 ```txt
 * Environment
@@ -23,20 +21,19 @@ Within topology, Environments represent a group of assets discovered from a gate
     * Secrets
 ```
 
-The Services, Webhooks, and Secrets above all have a hard dependency to the environment. _If the environment is deleted all assets within the environment will also be deleted._ The same hard dependency applies to all child assets. Another example, If the version within the service is deleted the endpoint will also be deleted but not the service.
+The services, webhooks, and secrets in the example all have a hard dependency to the environment. _If the environment is deleted all assets within the environment will also be deleted._ The same hard dependency applies to all child assets. Another example, if the version within the service is deleted, the endpoint will also be deleted but not the service.
 
-The relationship between Service Assets, Webhooks, and Secrets is a soft dependency. If a Webhook is deleted neither of the other two will be affected. However, this may break integrations where the webhook was being used i.e. in a catalog item.
+The relationship between service assets, webhooks, and secrets is a soft dependency. If a webhook is deleted, neither of the other two will be affected. However, this may break integrations where the webhook was being used, for example, in a catalog item.
 
-Assets within an environment can be combined to create catalog items that consumers can then subscribe to and use.
+You can combine assets within an environment to create catalog items that consumers can then subscribe to and use.
 
 ## Synchronize your environment with a gateway
 
-Using agents is the recommended way to add service assets to your environment. When a discovery agent is installed on your gateway it will auto-discover service assets and add them to your environment in AMPLIFY Central. The traceability agent will send API traffic logs from your gateway to AMPLIFY Central, where you can then view and analyze it.
+Using agents is the recommended way to add service assets to your environment. When a discovery agent is installed on your gateway, the agent will auto-discover service assets and add them to your environment in AMPLIFY Central. The traceability agent will send API traffic logs from your gateway to AMPLIFY Central, where you can then view and analyze the logs.
 
-For more information on agents, please see:
+For more information about the agents, see:
 
 * [Discovery and Traceability Agents for API Manager](/docs/central/connect-api-manager/).
-
 * [Discovery and Traceability Agents for AWS Gateway](/docs/central/connect-aws-gateway/).
 
 To manually synchronize your environment, you can use the [AMPLIFY Central CLI](/docs/central/cli_central/cli_apiservices) or the [AMPLIFY Central APIs](https://apicentral.axway.com/apis/docs). Note that changes in your deployment will not be automatically synchronized with AMPLIFY Central.
