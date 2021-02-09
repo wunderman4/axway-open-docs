@@ -8,7 +8,7 @@ description: How to create an api service.
 
 {{< alert title="Public beta" color="warning" >}}This feature is currently in **public beta** and not yet available for production use.{{< /alert >}}
 
-To get started creating an api service in the UI, first navigate to the details page of an environment. From the details page there is a plus ( + ) button located at the top right of the `Activty Dashboard`
+To get started creating an api service in the UI, first navigate to the details page of an environment. From the details page there is a plus ( + ) button located at the top right of the `Activity Dashboard`
 
 > If you want to add an api service using the AMPLIFY Central CLI refer to the docs [here](/docs/central/cli_central/cli_apiservices) instead.
 
@@ -45,12 +45,12 @@ Fetching the api specification from url only supports json at the moment.
 
 ![confirmInformation](/Images/central/add_api_service/confirmInformation.png)
 
--   Title: a friendly name
--   Logical Name: must be unique, used as the asset id and will be referenced in dependencies.
--   Description: limited to 1000 characters.
--   Tags: used to group assets to make easier to find.
--   Attributes: are key and value pairs used for extending functionality and integrations with third party systems.
--   Image: now with better crop functionality!
+* Title: a friendly name
+* Logical Name: must be unique, used as the asset id and will be referenced in dependencies.
+* Description: limited to 1000 characters.
+* Tags: used to group assets to make easier to find.
+* Attributes: are key and value pairs used for extending functionality and integrations with third party systems.
+* Image: now with better crop functionality!
 
 ## Step 3: Submit
 
