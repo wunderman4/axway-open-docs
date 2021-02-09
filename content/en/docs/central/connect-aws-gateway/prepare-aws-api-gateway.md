@@ -1,14 +1,14 @@
 ---
 title: Prepare AWS API Gateway
 linkTitle: Prepare AWS API Gateway
-draft: false
-weight: 20
+draft: true
+weight: null
 description: Learn how to use the provided CoudFormation templates to initialize
   AWS Services, which enables the agents to collect API / traffic data.
 ---
 ## Before you start
 
-* Read [AMPLIFY Central AWS API Gateway connected overview](/docs/central/connect-aws-gateway/)
+* Read [Amplify Central AWS API Gateway connected overview](/docs/central/connect-aws-gateway/)
 * You will need a basic knowledge of Amazon Web Services (AWS) and associated tools
 
 ## Objectives
@@ -18,7 +18,7 @@ Learn how to configure CloudFormation to initialize the required AWS Services fo
 ## Download the CloudFormation templates
 
 ```
-curl -L "https://axway.bintray.com/generic-repo/aws-agents/aws_apigw_agent_config/latest/aws_apigw_agent_config-latest.zip" -o aws_apigw_agent_config-latest.zip
+curl -L "https://axway.jfrog.io/artifactory/ampc-public-generic-release/aws-agents/aws_apigw_agent_config/latest/aws_apigw_agent_config-latest.zip" -o aws_apigw_agent_config-latest.zip
 ```
 
 This zip contains three files:
@@ -66,7 +66,7 @@ aws ec2 create-key-pair \
     --output text > MyKeyPair.pem
 ```
 
-## Save AMPLIFY Central keys within AWS Systems Manager Parameter Store (EC2 and ECS)
+## Save Amplify Central keys within AWS Systems Manager Parameter Store (EC2 and ECS)
 
 * Create a secure string parameter for both the private_key.pem and public_key.pem files.
 
@@ -101,8 +101,8 @@ Create a new stack with the S3 URL of the `amplify-agents-deploy-all.yaml` templ
     * Enable **ConfigServiceSetup** to create an IAM role for using Config Service.
     * Set the **ConfigBucketExists** value to `true` to use an existing S3 bucket to store the AWS logs. Be sure the S3 Bucket is accessible and is located in the same region where you run the Cloud Formation template.
     * Set the ConfigBucketName value to the S3 Bucket where you saved all of the files, to store AWS Config logs. When ConfigBucketExists is false the CloudFormation will attempt to create a new bucket using the this name value appending the account id and region to it.
-    * Accept the **DiscoveryQueueName** default value of `aws-apigw-discovery` to hold changes made to the API Gateway resources. The AWS region is appended to this value.
-    * Accept the **TraceabilityQueueName** default value of `aws-apigw-traceability` to hold the API call so that the Traceability Agent can push them into the AMPLIFY platform.
+    * Accept the **DiscoveryQueueName** default value of `aws-apigw-discovery` to hold changes made to the API Gateway resources.
+    * Accept the **TraceabilityQueueName** default value of `aws-apigw-traceability` to hold the API call so that the Traceability Agent can push them into the Amplify platform.
 
 * Deployment Type
 
@@ -122,6 +122,11 @@ Create a new stack with the S3 URL of the `amplify-agents-deploy-all.yaml` templ
     * Accept the **ECSClusterName** default value of blank, for quickstart.
     * Accept the **ECSCentralOrganizationID** default value of blank, for quickstart.
     * Accept the **ECSCentralEnvironmentName** default value of blank, for quickstart.
+    * Accept the **ECSCentralDiscoveryAgentName** default value of blank, for quickstart.
+    * Accept the **ECSCentralTraceabilityAgentName** default value of blank, for quickstart.
+    * Accept the **ECSCentralURL** default value of blank, for quickstart.
+    * Accept the **ECSCentralDeployment** default value of blank, for quickstart.
+    * Accept the **ECSCentralTraceabilityHost** default value of blank, for quickstart.
     * Accept the **ECSCentralClientID** default value of blank, for quickstart.
 
 * EC2/ECS Common Deployment Settings (ignore if **DeploymentType** is `Other`). Suggested values for quickstart.
@@ -143,30 +148,35 @@ aws cloudformation create-stack \
     --template-url [[S3 URL to amplify-agents-deploy-all.yaml]] \
     --capabilities CAPABILITY_IAM  CAPABILITY_AUTO_EXPAND \
     --parameters '[
-                    {"ParameterKey": "AgentResourcesBucket",          "ParameterValue": "[[MY-BUCKET-NAME]]"},
-                    {"ParameterKey": "APIGWCWRoleSetup",              "ParameterValue": "true"},
-                    {"ParameterKey": "APIGWTrafficLogGroupName",      "ParameterValue": "aws-apigw-traffic-logs"},
-                    {"ParameterKey": "ConfigServiceSetup",            "ParameterValue": "true"},
-                    {"ParameterKey": "ConfigBucketName",              "ParameterValue": "[[MY-BUCKET-NAME]]"},
-                    {"ParameterKey": "ConfigBucketExists",            "ParameterValue": "true"},
-                    {"ParameterKey": "DiscoveryQueueName",            "ParameterValue": "aws-apigw-discovery"},,
-                    {"ParameterKey": "TraceabilityQueueName",         "ParameterValue": "aws-apigw-traceability"},
-                    {"ParameterKey": "DeploymentType",                "ParameterValue": "EC2"},
-                    {"ParameterKey": "EC2InstanceType",               "ParameterValue": "t3.micro"},
-                    {"ParameterKey": "EC2KeyName",                    "ParameterValue": "[[MY EC2 SSH KEY NAME]]"},
-                    {"ParameterKey": "EC2VPCID",                      "ParameterValue": ""},
-                    {"ParameterKey": "EC2PublicIPAddress",            "ParameterValue": "true"},
-                    {"ParameterKey": "EC2SSHLocation",                "ParameterValue": "0.0.0.0/0"},
-                    {"ParameterKey": "ECSClusterName",                "ParameterValue": ""},
-                    {"ParameterKey": "ECSCentralOrganizationID",      "ParameterValue": ""},
-                    {"ParameterKey": "ECSCentralEnvironmentName",     "ParameterValue": ""},
-                    {"ParameterKey": "ECSCentralClientID",            "ParameterValue": ""},
-                    {"ParameterKey": "DiscoveryAgentLogGroupName",    "ParameterValue": "amplify-discovery-agent-logs"},
-                    {"ParameterKey": "TraceabilityAgentLogGroupName", "ParameterValue": "amplify-traceability-agent-logs"},
-                    {"ParameterKey": "SSMPrivateKeyParameter",        "ParameterValue": "AmplifyPrivateKey"},
-                    {"ParameterKey": "SSMPublicKeyParameter",         "ParameterValue": "AmplifyPublicKey"},
-                    {"ParameterKey": "SecurityGroup",                 "ParameterValue": ""},
-                    {"ParameterKey": "Subnet",                        "ParameterValue": ""}
+                    {"ParameterKey": "AgentResourcesBucket",            "ParameterValue": "[[MY-BUCKET-NAME]]"},
+                    {"ParameterKey": "APIGWCWRoleSetup",                "ParameterValue": "true"},
+                    {"ParameterKey": "APIGWTrafficLogGroupName",        "ParameterValue": "aws-apigw-traffic-logs"},
+                    {"ParameterKey": "ConfigServiceSetup",              "ParameterValue": "true"},
+                    {"ParameterKey": "ConfigBucketName",                "ParameterValue": "[[MY-BUCKET-NAME]]"},
+                    {"ParameterKey": "ConfigBucketExists",              "ParameterValue": "true"},
+                    {"ParameterKey": "DiscoveryQueueName",              "ParameterValue": "aws-apigw-discovery"},,
+                    {"ParameterKey": "TraceabilityQueueName",           "ParameterValue": "aws-apigw-traceability"},
+                    {"ParameterKey": "DeploymentType",                  "ParameterValue": "EC2"},
+                    {"ParameterKey": "EC2InstanceType",                 "ParameterValue": "t3.micro"},
+                    {"ParameterKey": "EC2KeyName",                      "ParameterValue": "[[MY EC2 SSH KEY NAME]]"},
+                    {"ParameterKey": "EC2VPCID",                        "ParameterValue": ""},
+                    {"ParameterKey": "EC2PublicIPAddress",              "ParameterValue": "true"},
+                    {"ParameterKey": "EC2SSHLocation",                  "ParameterValue": "0.0.0.0/0"},
+                    {"ParameterKey": "ECSClusterName",                  "ParameterValue": ""},
+                    {"ParameterKey": "ECSCentralOrganizationID",        "ParameterValue": ""},
+                    {"ParameterKey": "ECSCentralEnvironmentName",       "ParameterValue": ""},
+                    {"ParameterKey": "ECSCentralDiscoveryAgentName",    "ParameterValue": ""},
+                    {"ParameterKey": "ECSCentralTraceabilityAgentName", "ParameterValue": ""},
+                    {"ParameterKey": "ECSCentralURL",                   "ParameterValue": ""},
+                    {"ParameterKey": "ECSCentralDeployment",            "ParameterValue": ""},
+                    {"ParameterKey": "ECSCentralTraceabilityHost",      "ParameterValue": ""},
+                    {"ParameterKey": "ECSCentralClientID",              "ParameterValue": ""},
+                    {"ParameterKey": "DiscoveryAgentLogGroupName",      "ParameterValue": "amplify-discovery-agent-logs"},
+                    {"ParameterKey": "TraceabilityAgentLogGroupName",   "ParameterValue": "amplify-traceability-agent-logs"},
+                    {"ParameterKey": "SSMPrivateKeyParameter",          "ParameterValue": "AmplifyPrivateKey"},
+                    {"ParameterKey": "SSMPublicKeyParameter",           "ParameterValue": "AmplifyPublicKey"},
+                    {"ParameterKey": "SecurityGroup",                   "ParameterValue": ""},
+                    {"ParameterKey": "Subnet",                          "ParameterValue": ""}
                   ]'
 ```
 

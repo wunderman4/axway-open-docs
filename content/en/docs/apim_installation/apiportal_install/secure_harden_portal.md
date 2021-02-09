@@ -75,15 +75,17 @@ If you did not choose to encrypt your database password during the installation 
 
 To encrypt your database password, run:
 
-   ```
-   # sh apiportal_db_pass_encryption.sh
-   ```
+```
+# sh apiportal_db_pass_encryption.sh
+```
 
 You will be prompted to enter a passphrase and your database password.
 
 The script uses the passphrase to encrypt the database password, which is now stored encrypted in the `<API_Portal_install_path>/configuration.php` file, and to decrypt the database password on each connection request.
 
 Only the password is decrypted on each connection request, not the whole payload, so no significant performance impact is expected.
+
+If you need to update the encrypted password, you must first change the password for the database, then run the `apiportal_db_pass_encryption.sh` script again and provide the new database password to use.
 
 {{< alert title="Note" color="primary" >}}This option cannot be used in combination with [database secure connection](#disable-tls-1-0-and-tls-1-1-on-apache).{{< /alert >}}
 
@@ -121,14 +123,6 @@ If you have APIs that are virtualized and published on a host other than an API 
 
 If you do not add your trusted API hosts to this field, all requests to those hosts will be rejected by API Portal.
 
-## Change the location of API Portal log files
-
-By default, API Portal saves the Apache log files in the `htdocs` directory. For increased security, you can configure a different location to save the log files:
-
-1. In the JAI, click **System > Global Configuration**.
-2. On the **System** tab, enter the new location in the **Path to Log Folder** field. Apache must have permission to write to the new location.
-3. Click **Save**.
-
 ## Configure Apache
 
 ### Update apiportal.conf
@@ -138,13 +132,25 @@ Add security headers to the `apiportal.conf` file (located in `/etc/httpd/conf.d
 In the virtual host directive add the following:
 
 ```
-Header edit Set-Cookie ^(.*)$ $1;HttpOnly;Secure;SameSite=Strict
+Header edit Set-Cookie "(?i)^((?:(?!;\s?HttpOnly).)+)$" "$1; HttpOnly"
+Header edit Set-Cookie "(?i)^((?:(?!;\s?Secure).)+)$" "$1; Secure"
+Header unset X-Frame-Options
 Header always append X-Frame-Options SAMEORIGIN
 Header set X-XSS-Protection "1; mode=block"
 Header always set Strict-Transport-Security "max-age=63072000; includeSubdomains;"
 Header set X-Content-Type-Options nosniff
 Header set Referrer-Policy "same-origin"
 ```
+
+{{< alert title="Note" color="" >}}`SameSite` attribute is not compatible with SSO.
+
+If you are not using SSO, we recommend you to add `SameSite` to the host directive so that the cookies are sent only in First-Party (API Portal) context, and not along with requests initiated by Third-Party websites.
+
+```
+`Header edit Set-Cookie "(?i)^((?:(?!;\s?SameSite=Strict).)+)$" "$1; SameSite=Strict"`
+```
+
+{{< /alert >}}
 
 You should only use the HSTS header if you have configured SSL.
 
@@ -173,7 +179,7 @@ Restart Apache after modifying the `apiportal.conf` and `security.conf` files.
 Find the location of your `php.ini` file. For example, run the command:
 
 ```
-php –i | grep php.ini
+php -i | grep php.ini
 ```
 
 In the resulting list of files, the `php.ini` listed as the `Loaded Configuration File` is the correct file to edit.
@@ -182,17 +188,18 @@ Update the file with the following options:
 
 ```
 - expose_php = 0
-- display_errors = 0
-- disable_functions = exec,passthru,shell_exec,system
-- allow_url_include = 0
+- display_errors = Off
+- disable_functions = "passthru,shell_exec,system"
+- allow_url_include = Off
 - session.cookie_httponly = 1
 - session.cookie_secure = On
-- open_basedir = “/opt/axway/apiportal/htdoc:/tmp”
+- session.cookie_samesite = "Strict"
+- open_basedir = "/opt/axway/apiportal/htdoc:/tmp"
 ```
 
 You should only set `session.cookie_secure` to `On` if you have configured SSL.
 
-Set `open_basedir` to a list of directories (use `:` to separate directories):
+The `open_basedir` option must be added after the installation is finished. Set `open_basedir` to a list of directories (use `:` to separate directories):
 
 * API Portal root directory
 * Value of `upload_tmp_dir` or `/tmp` if it is empty
@@ -251,6 +258,30 @@ The following options are available from the **Authentication method** list:
 * [Google Authenticator](https://en.wikipedia.org/wiki/Google_Authenticator): A software-based application provided by Google, which allows you to generate a six-digit security password that changes every 30 seconds. To use this option, you must download Google Authenticator on a smartphone, and configure it for each site which will be using it. You can enable two-factor authentication for the front-end, back-end, or for both. You can configure this in the **Two-Factor Authentication – Google Authenticator** plug-in.
 * Yubikey: Allows you to use a Yubikey secure hardware token for two-factor authentication. In addition to the username and password, it also requires you to insert your Yubikey into the USB port of your computer (Click the **Secret Key** area of the site's login area and touch the **Yubikey's gold disk**). If you have an NFC-equipped Android smartphone you can just hold a compatible Yubikey token (Yubikey Neo) close to the NFC reader to copy the secret code to the device's clipboard. The secret code generated by your Yubikey is unique to your device, and it is constantly changing. You can enable two-factor authentication for the front-end, back-end, or for both. You can configure this in the plugin **Two-Factor Authentication – Yubikey** plug-in.
 
+## Enable scanning of uploaded files
+
+API Portal provides [ClamAV](https://www.clamav.net/documents/clam-antivirus-user-manual) anti-virus engine for scanning uploaded files for malicious content. ClamAV comes with *freshclam*, a tool that periodically checks for new database releases and keeps your database up to date.
+
+Before enabling the scanning feature, you must install two packages in your machine:
+
+* **clamav**: End-user tool for the Clam Antivirus scanner
+* **clamd**: The Clam AntiVirus Daemon
+
+Both packages are available in EPEL.
+
+After installing the packages, you must start *ClamAV daemon*, the daemon that API Portal uses to scan the files.
+
+After starting the daemon, you can enable scanning of uploaded files:
+
+1. In JAI, click **Components** > **API Portal** > **Additional settings**.
+2. Enable **Scan uploaded files** toggle.
+3. Enter the ClamAV host and port.
+4. Save the configuration.
+
+If the configuration is incorrect or ClamAV daemon is not running, an error message will be shown.
+
+{{< alert title="Note" color="primary" >}}If `PrivateTmp` flag is set to true for the Apache service and `/tmp` is set for `upload_tmp_dir` PHP configuration, ClamAV will not be able to scan uploaded files. In that case, you can change the value of `upload_tmp_dir` to `APIPORTAL_INSTALL_DIR/tmp`.{{< /alert >}}
+
 ## Do not allow web browsers to save login and password
 
 When you log in to Joomla! Administrator Interface (JAI) do not allow the web browser to save or remember your login and password.
@@ -282,11 +313,17 @@ RewriteRule ^ - [R=415,L]
 
 It is best practice to reject requests from HTTP methods that are not being used with the response `405 Method Not Allowed`. For example, allowing requests from the `TRACE` method might result in Cross-Site Tracing (XST) attacks. Similarly, allowing requests from `PUT` and `DELETE` methods might expose vulnerabilities to the file system.
 
+`OPTIONS` method reports which HTTP methods are allowed on the web server, it is mainly used for debugging purposes. If you do not plan to run a diagnostic or debug the server, consider disabling this method.
+
 `GET` and `POST` requests are mandatory for API Portal. You must also allow requests from the HTTP methods your listed APIs support, so users can send requests to them from the Try It page.
 
 Add this configuration in your `.htaccess` or virtual host file. The following example allows only `GET`, `POST`, and `PUT` methods:
 
 ```
+# Disable OPTIONS method
+RewriteCond %{REQUEST_METHOD} ^OPTIONS
+RewriteRule .* - [F]
+
 # Disable TRACE method
 TraceEnable off
 
@@ -294,19 +331,22 @@ TraceEnable off
 AllowMethods GET POST PUT
 ```
 
+## Prevent host header attack
+
+To prevent host header attacks, we recommend to whitelist `Host` and `X-Forwarded-Host` headers. When the values of the headers do not match the whitelist, the request is redirected to API Portal homepage. To whitelist headers, add the following configuration to your `.htaccess` or virtual host file. (Replace the placeholder URL with your domain):
+
+```
+RewriteCond %{HTTP_HOST} !^([a-zA-Z0-9-_]{1,20}.){0,3}APIPORTAL_DOMAIN$
+RewriteRule ^(.*)$ https://APIPORTAL_YOUR_DOMAIN/ [R=301,L]
+
+RewriteCond %{HTTP:X-Forwarded-Host} !^$
+RewriteCond %{HTTP:X-Forwarded-Host} !^([a-zA-Z0-9-_]{1,20}.){0,3}APIPORTAL_DOMAIN$
+RRewriteRule ^(.*)$ https://APIPORTAL_YOUR_DOMAIN/ [R=301,L]
+```
+
 ## Protect the integrity of the logging system
 
-You must ensure that security logs are protected against tampering, repudiation, and unauthorized access or modification. Store logs in a secure and tamper-proof location so that the logs can be used as evidence, for example, in any form of legal proceedings.
-
-To protect the integrity of the application generated logs:
-
-* Store logs on write-once media
-* Forward a copy of the logs to a centralized security information and event management (SIEM) system
-* Generate message digests for each log file
-
-This approach ensures that you can detect and prevent tampering.
-
-API Portal logs are located in the `logs` folder in the API Portal root directory.
+To protect the integrity of the application generated logs, see [these security best practices for storing log files](/docs/apim_administration/apiportal_admin/apip_logging/).
 
 ## Utilize synchronized time source
 

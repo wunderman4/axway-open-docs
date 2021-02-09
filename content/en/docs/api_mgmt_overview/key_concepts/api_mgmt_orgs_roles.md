@@ -5,7 +5,6 @@
   "date": "2019-09-17",
   "description": "Learn about the API administrator, organization administrator, and API consumer roles in API management."
 }
-
 ## API Gateway user roles
 
 API Gateway provides the following main user roles.
@@ -100,14 +99,21 @@ API administrators manage and monitor the virtualized APIs and the clients that 
 
 ### Organization administrator
 
-Organization administrators have full read access to users and applications in their own organizations, but they can be added as `user` in different organizations. If application management is delegated, Organization administrators can also create, update, and delete. However, they can only delete a user if in all organizations, which the user is a member of:
+Organization administrators can manage APIs lifecycle that are exposed to API consumers. They can also create and share applications without relying on the API administrator for approval, all within the scope of the organization they belong as an Organization administrator.
 
-* The Organization administrator role is `Organization administrator`.
+In addition, the Organization administrator has full read access to users and applications in their own organizations, but they can be added as `user` in different organizations.
+
+Organization administrators can also create, update, and delete users. However, they can only delete a user under the following set of criteria:
+
 * The user role is `user`.
+* The `user` and the Organization administrator belong to the same organization.
+* When a `user` belongs to more than one organization, only the user account in which the `user` and the Organization administrator shares the same scope will be deleted. The other organizations outside the scope of the Organization administrator will remain intact.
 
 The Organization administrator cannot demote another Organization administrator to a `user` role.
 
-By default, organization administrators require approval from an Administrator to publish APIs owned by users in their organization, and they are not allowed to unpublish APIs. By setting `api.manager.orgadmin.selfservice.enabled` system property to `true`, the Organization administrator will no longer require approval, and will be able to directly publish and unpublish APIs in their own organization.
+By default, organization administrators require approval from an Administrator to publish APIs owned by users in their organization, and they are not allowed to unpublish APIs.
+
+By setting [`api.manager.orgadmin.selfservice.enabled`](/docs/apim_reference/system_props/) system property to `true`, the organization administrator will no longer require approval, and will be able to directly publish and unpublish APIs in their own organization. In addition, they will also be able to deprecate, undeprecate, retire, upgrade, and grant access to APIs in organizations in which they are an Organization administrator. With the enablement of this system property all Organization administrators have view access to all Organizations but will only be able to view APIs in organizations in which they are a member of or have been granted access to.
 
 ### API consumer
 

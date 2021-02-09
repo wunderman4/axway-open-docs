@@ -1,9 +1,10 @@
 ---
 title: API Gateway and API Manager 7.7 September 2020 Release Notes
 linkTitle: API Gateway and API Manager September 2020
-weight: 60
+weight: 120
 date: 2020-08-26T00:00:00.000Z
 ---
+
 ## Summary
 
 API Gateway is available as a software installation or a virtualized deployment in Docker containers. API Manager is a licensed product running on top of API Gateway, and has the same deployment options as API Gateway.
@@ -66,7 +67,7 @@ When you delete the primary organization of a user, the user’s account is also
 
 By default, Organization administrators require the approval of an API administrator to publish and unpublish APIs that were created in their organization without approval from an API Administrator. By setting the `api.manager.orgadmin.selfservice.enabled` system property to `true`, the OrgAdmin will no longer require approval, and will be able to directly publish and unpublish APIs.
 
-### Technical preview capability: YAML configuration store
+### YAML configuration store (Technical preview capability)
 
 This work is an initiative born from collaborative customer hackathons to make the API Gateway configuration more CI/CD/DevOps and developer-friendly.​ It involved transforming the federated configuration into YAML fragments, which can be managed using standard DevOps tools, moving away from a propriety TeamDev approach to encourage the use of standard tools, source control, and DevOps tools that could be used to facilitate and encourage a better experience for collaboration.​
 
@@ -76,9 +77,9 @@ This initiative focuses on addressing:​
 * Source code which is developer-friendly​.
 * Designed for improved DevOps capability.
 
-{{% alert title="Note" %}}
+{{< alert title="Note" color="primary" >}}
 The YAML configuration capability is released as a technical preview version which is still undergoing final testing before its official release. The feature, its software and all related content are provided on an “as is” and “as available” basis. Axway does not give any warranties, whether express or implied, as to the suitability or usability of the feature, its software or any of its content.
-{{% /alert%}}
+{{< /alert >}}
 
 The XML configuration store is still supported and is enabled as the primary configuration format. See [YAML configuration Reference](/docs/apim_yamles/apim_yamles_references/) for known limitations.
 
@@ -131,7 +132,7 @@ The sFTP server currently supports:
 
 ### Groovy v2.5.13
 
-The Groovy version used by the Scripting Filter is updated to 2.5.13.
+The Groovy version used by the Scripting Filter is updated from 2.4.8 to 2.5.13.
 
 ### Filebeat v6.2.2
 
@@ -227,9 +228,9 @@ These items are still supported until removal, however we recommend to stop usin
 
 To stay current and align our offerings with customer demand and best practices, Axway might discontinue support for some capabilities. As part of this review, the following features have been removed:
 
-### Run `update-apimanager.py` script to upgrade API Manager
+### Run update-apimanager.py script to upgrade API Manager
 
-The requirement to run `update-apimanager.py` has been removed. For more information see [Update API Manager](/docs/apim_installation/apigw_upgrade/upgrade_steps_oneversion/#update-api-manager).
+The script `update-apimanager.py` has been removed, but you still need to perform an update of the API Manager FED file. For more information, see [Update API Manager](/docs/apim_installation/apigw_upgrade/upgrade_steps_oneversion/#update-api-manager).
 
 ## Fixed issues
 
@@ -277,7 +278,7 @@ This version of API Gateway and API Manager includes:
 | RDAPI-21482 | 01187410                                                                                                               | **Issue**: Empty JSON Body due to JSON Remove Node removing the only node causes Exception. **Resolution**: Successfully parsed JSON body no longer throws Exception when writing content.                                                                                                                                                                                                                                                                              |
 | RDAPI-21483 | 01187661  01187906  01188834                                                                                           | **Issue**: Compare Attribute filter fix RDAPI-20017 causes breaking changes for existing customers **Resolution**: RDAPI-20017 is reverted to remove breaking changes and will be analyzed further.                                                                                                                                                                                                                                                                     |
 | RDAPI-21505 | 01187335                                                                                                               | **Issue**: In a multi-node setup, API Manager does not notify all instances of remote host configuration changes **Resolution**: Remote host configuration changes are now broadcasted across all instances so that configuration changes can take effect.                                                                                                                                                                                                              |
-| RDAPI-20923 | 01198145  01172404  01184847  01190517                                                                                                               | **Issue**: Application pagination was not behaving as expected **Resolution**: Application pagination now behaves correctly.                                                                                                                                                                                                               |
+| RDAPI-20923 | 01198145  01172404  01184847  01190517                                                                                 | **Issue**: Application pagination was not behaving as expected **Resolution**: Application pagination now behaves correctly.                                                                                                                                                                                                                                                                                                                                            |
 
 ## Known issues
 
@@ -350,6 +351,7 @@ The following are known issues for this update.
 | RDAPI-21738 | Issue in sysupgarde apply - Import failed for table                                                                                                                |
 | RDAPI-21784 | Redaction not working when Content-Type is multipart/form-data and form-field is a file                                                                            |
 | RDAPI-21801 | Spaces in query-string parameters which are encoded as '%20' on the inbound request, are changed to be encoded with '+' during the transaction                     |
+| RDAPI-21984 | Groovy's java.util.Date does not work in scripts due to Groovy version update from 2.4.8 to 2.5.13.                                                                |
 
 ### Policy Studio help documentation
 

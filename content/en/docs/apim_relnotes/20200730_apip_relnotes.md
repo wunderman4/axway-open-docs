@@ -1,7 +1,7 @@
 ---
 title: API Portal 7.7 July 2020 Release Notes
 linkTitle: API Portal July 2020
-weight: 70
+weight: 130
 date: 2020-06-09T00:00:00.000Z
 ---
 ## Summary
@@ -21,10 +21,6 @@ API Portal is available as a software installation or a virtualized deployment i
 ### Non-root installer​
 
 To expand compliance with many customers internal security guidelines, which discourage or disallow root access, we have added the ability to install and run API Portal using `sudo` commands.​ To learn more, watch [How to install API Portal without being a root user](https://www.youtube.com/watch?v=H5RZjP9Zl7k&list=PLSlCpG9zsECpo8-JMZ2Cx4REDyUvpwy9v)​.
-
-### Easy upgrade from 7.5.5 and 7.6.2
-
-With end of support for API Portal 7.5.5 and 7.6.2 looming in November 2020, we are looking at ways to help customers make the jump to the latest 7.7 update.​ The `apiportal_cumulative_upgrade.sh` is a cumulative script that you can use to upgrade an environment from 7.5.5 or 7.6.2 directly to the latest 7.7 update​. See [Cumulative upgrade script](/docs/apim_installation/apiportal_install/upgrade_automatic/#upgrade-api-portal-using-the-cumulative-upgrade-script).
 
 ### CentOS 8​ support
 
@@ -97,7 +93,7 @@ This version of API Portal includes:
 | IAP-3371    |         | **Issue**: Global Configuration in JAI cannot be saved when MySQL password encryption or MySQL SSL modes are enabled. **Resolution**: Global Configuration persists with no errors.                                                                                                                                                                            |
 | IAP-3387    |         | **Issue**: Global Configuration in JAI cannot be saved when encryption key for database cache is not generated. **Resolution**: Cache is not invalidated on save when encryption key is not generated.                                                                                                                                                         |
 | IAP-3404    | 1172998 | **Issue**: An error is shown on API Try it page when the default language of API Portal is changed. **Resolution**: API Try it page is successfully loaded when the default language of API Portal is changed.                                                                                                                                                 |
-| IAP-3416    | 1174950 | **Issue**: The values of the custom properties are not displayed for SOAP APIs. **Resolution**: As we can not get these values, we have hidden the labels. This is noted in the documentation, see [API Manager custom properties support](/docs/apim_administration/apiportal_admin/customize_page_content/index.html#api-manager-custom-properties-support). |
+| IAP-3416    | 1174950 | **Issue**: The values of the custom properties are not displayed for SOAP APIs. **Resolution**: As we can not get these values, we have hidden the labels. This is noted in the documentation, see [API Manager custom properties support](/docs/apim_administration/apiportal_admin/customize_page_content/#api-manager-custom-properties-support). |
 | IAP-3419    |         | **Issue**: API Portal text is shown in the header after the logo image when upgrading from version 7.6.2. **Resolution**: There's no API Portal text in the header after the logo image when upgrading from version 7.6.2.                                                                                                                                     |
 
 ## Known issues

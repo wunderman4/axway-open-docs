@@ -317,6 +317,13 @@ const collections = [{
   description: 'All pages relating to Mesh management.',
   format: 'frontmatter',
 }, {
+  ...docsDefaults('central/amplify_relnotes', 'central/amplify_relnotes'),
+  name: 'amplify_relnotes',
+  label: 'AMPLIFY Release notes',
+  label_singular: 'page in AMPLIFY Release notes section',
+  description: 'Release notes for AMPLIFY Central and AMPLIFY Catalog',
+  format: 'frontmatter',
+}, {
   ...docsDefaults('central/connect-api-manager', 'central/connect-api-manager'),
   name: 'connect-api-manager',
   label: 'Connect API Manager documentation',
@@ -329,6 +336,13 @@ const collections = [{
   label: 'Connect AWS Gateway documentation',
   label_singular: 'page in Connect AWS Gateway',
   description: 'All pages relating to Connect AWS Gateway.',
+  format: 'frontmatter',
+}, {
+  ...docsDefaults('central/connect-azure-gateway', 'central/connect-azure-gateway'),
+  name: 'connect-azure-gateway',
+  label: 'Connect Azure Gateway documentation',
+  label_singular: 'page in Connect Azure Gateway',
+  description: 'All pages relating to Connect Azure Gateway.',
   format: 'frontmatter',
 }, {
   ...docsDefaults('central/cli_central', 'central/cli_central'),
@@ -374,7 +388,7 @@ const collections = [{
   folder: 'content/en/blog/friends',
 }];
 
-const cms_branch = window.location.hostname.includes('develop') ? 'develop' : 'master';
+const cms_branch = window.location.hostname.includes('developmar21') ? 'developmar21' : 'master';
 
 const config = {
   backend: {
