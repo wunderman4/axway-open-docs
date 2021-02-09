@@ -16,7 +16,7 @@ To get started creating an api service in the UI, first navigate to the details 
 
 ### Step 1: Import your service
 
-Define the api specification by uploading a file, or by fetching the spec from a URL. If you chose to upload a file the accepted file extensions are listed below by file type vs service specification type.
+Define the api specification by uploading a file, or by fetching the spec from a URL. If you chose to upload a file the accepted file extensions are listed below by file type vs service specification type. Any uploaded file may also be uploaded as an unstructured type, this is useful if your spec type is not officially supported.
 
 |           |   OAS2   |           |   OAS3   |           | Protobuf |           |   WSDL   |           |
 | --------- | :------: | :-------: | :------: | :-------: | :------: | :-------: | :------: | :-------: |
@@ -37,12 +37,12 @@ We will automatically parse the file and set the `Specification Type' on upload.
 
 ### Step 2: Confirm Information
 
-* Title: a friendly name
-* Logical Name: must be unique, used as the asset id and will be referenced in dependencies.
-* Description: limited to 1000 characters.
-* Tags: used to group assets to make easier to find.
-* Attributes: are key and value pairs used for extending functionality and integrations with third party systems.
-* Image: now with better crop functionality!
+* Title is a friendly name for the service, it will be displayed first and is searchable.
+* Logical Name must be unique and is used as the unique id for the service. The logical name will be referenced in dependencies of this service.
+* Description is limited to 1000 characters.
+* Tags are used to group assets, making it easier to find assets faster.
+* Attributes are key and value pairs used for extending functionality and integrations with third party systems.
+* Service Image now has an improved crop that will resize the selection and maintain the correct aspect ratio.
 
 ![confirmInformation](/Images/central/add_api_service/confirmInformation.png)
 
