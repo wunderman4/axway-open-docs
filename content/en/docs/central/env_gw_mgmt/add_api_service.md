@@ -38,7 +38,7 @@ On upload, the file is automatically parsed and the recommended `Specification T
 * **Description** is limited to 1000 characters.
 * **Tags** are used to group assets, making it easier to find assets faster.
 * **Attributes** are key and value pairs used for extending functionality and integrations with third-party systems.
-* **API Service Image** can be used as a visual aid for finding a API service.
+* **API Service Image** is used as a visual aid when looking though a list of API services.
 
 ### Errors and debugging
 
