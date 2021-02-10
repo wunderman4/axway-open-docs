@@ -6,15 +6,19 @@ date: 2021-02-09
 description: How to create an api service.
 ---
 
-{{< alert title="Public beta" color="warning" >}}This feature is currently in **public beta** and not yet available for production use.{{< /alert >}}
+## Add an API Service
 
-To get started creating an api service in the UI, first navigate to the details page of an environment. From the details page there is a plus ( + ) button located at the top right of the `Activity Dashboard`
+To get started, follow these steps to create an API Service.  
 
-> If you want to add an api service using the amplify Central CLI refer to the docs [here](/docs/central/cli_central/cli_apiservices) instead.
+1. From the details page of your environment, select the plus ( + ) button located at the top right of the **Activity Dashboard**
+2. To define the API specification, **upload a file**, or **fetch from URL**.
+3. Confirm the information about your API service and click **Save**.
 
-### Step 1: Import Service Specification
+> If you want to add an API service using the amplify Central CLI, refer to the docs [here](/docs/central/cli_central/cli_apiservices) instead.
 
-Define the api specification by uploading a file, or by fetching the specification from a URL. If you chose to upload a file the accepted file extensions are listed below by file type vs service specification type. Any uploaded file may also be uploaded as an unstructured type, this is useful if your specification type is not officially supported.
+### Import Service Specification
+
+Define the API specification by uploading a file or by fetching the specification from a URL. If you chose to upload a file, the accepted file extensions are listed below by accepted file type versus service specification type. Any uploaded specification file can be assigned as an unstructured specification type; this is useful if your specification type is not officially supported.
 
 |           |   OAS2   |           |   OAS3   |           | Protobuf |           |   WSDL   |           |
 | --------- | :------: | :-------: | :------: | :-------: | :------: | :-------: | :------: | :-------: |
@@ -25,21 +29,17 @@ Define the api specification by uploading a file, or by fetching the specificati
 | .proto    |    NO    |    NO     |    NO    |    NO     |   YES    |    YES    |    NO    |    NO     |
 | .xml      |    NO    |    NO     |    NO    |    NO     |    NO    |    NO     |    NO    |    YES    |
 
-On upload the file will be automatically parsed and the the recommended `Specification Type' set. Optionally, if the recommended specification type is incorrect, you can override the selection by choosing a different specification type.
+On upload, the file is automatically parsed and the recommended `Specification Type' set. Optionally, if the recommended specification type is incorrect, you can override the selection by choosing a different specification type.
 
-### Step 2: Confirm Information
+### Confirm Information
 
-* Title is a friendly name for the service, it will be displayed first and is searchable.
-* Logical Name must be unique and is used as the unique id for the service. The logical name will be referenced in dependencies of this service.
+* Title represents a friendly name for the service. The title will be displayed first and is searchable but does not need to be unique.
+* Logical Name must be unique and is used as the unique id for the service. The logical name is referenced in any dependencies of the service.
 * Description is limited to 1000 characters.
 * Tags are used to group assets, making it easier to find assets faster.
-* Attributes are key and value pairs used for extending functionality and integrations with third party systems.
+* Attributes are key and value pairs used for extending functionality and integrations with third-party systems.
 * Service Image now has an improved crop that will resize the selection and maintain the correct aspect ratio.
-
-### Step 3: Submit
-
-Once the required fields have been met the save button will be enabled and you can submit the form.
 
 ### Errors and debugging
 
-In the event there is an error while submitting the form the page will have a large error box above the fields explaining what has happened. The error may contain references to objects only found when using the CLI or API directly, in this case refer to the [amplify CLI](/docs/central/cli_central/cli_apiservices) documentation for further guidance.
+In the event, there is an error while saving the API service. The form page will have a large error box explaining what caused the error. The error may contain references to objects only found when using the CLI or API directly. In this case please refer to the [amplify CLI](/docs/central/cli_central/cli_apiservices) documentation for further guidance.
