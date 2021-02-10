@@ -8,13 +8,13 @@ description: How to create an api service.
 
 ## Add an API Service
 
-To get started, follow these steps to create an API Service.  
+Follow these steps to create an API Service.
 
 1. From the details page of your environment, select the plus ( + ) button located at the top right of the **Activity Dashboard**
 2. To define the API specification, **upload a file**, or **fetch from URL**.
 3. Confirm the information about your API service and click **Save**.
 
-> If you want to add an API service using the amplify Central CLI, refer to the docs [here](/docs/central/cli_central/cli_apiservices) instead.
+> If you want to add an API service using the amplify Central CLI, please refer to these [docs](/docs/central/cli_central/cli_apiservices) instead.
 
 ### Import Service Specification
 
@@ -33,12 +33,12 @@ On upload, the file is automatically parsed and the recommended `Specification T
 
 ### Confirm Information
 
-* Title represents a friendly name for the service. The title will be displayed first and is searchable but does not need to be unique.
-* Logical Name must be unique and is used as the unique id for the service. The logical name is referenced in any dependencies of the service.
-* Description is limited to 1000 characters.
-* Tags are used to group assets, making it easier to find assets faster.
-* Attributes are key and value pairs used for extending functionality and integrations with third-party systems.
-* Service Image now has an improved crop that will resize the selection and maintain the correct aspect ratio.
+* **Title** represents a friendly name for the service. The title will be displayed first and is searchable but does not need to be unique.
+* **Logical Name** represents the unique id for the service and must be unique within the scope of the environment. The logical name is referenced in any dependencies of the API service.
+* **Description** is limited to 1000 characters.
+* **Tags** are used to group assets, making it easier to find assets faster.
+* **Attributes** are key and value pairs used for extending functionality and integrations with third-party systems.
+* **API Service Image** now has an improved crop that will resize the selection and maintain the correct aspect ratio.
 
 ### Errors and debugging
 
