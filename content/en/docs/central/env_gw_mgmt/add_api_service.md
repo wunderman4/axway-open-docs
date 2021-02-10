@@ -12,11 +12,9 @@ To get started creating an api service in the UI, first navigate to the details 
 
 > If you want to add an api service using the amplify Central CLI refer to the docs [here](/docs/central/cli_central/cli_apiservices) instead.
 
-![EnvDetailsPage](/Images/central/add_api_service/envDetailsPage.png)
+### Step 1: Import Service Specification
 
-### Step 1: Import your service
-
-Define the api specification by uploading a file, or by fetching the spec from a URL. If you chose to upload a file the accepted file extensions are listed below by file type vs service specification type. Any uploaded file may also be uploaded as an unstructured type, this is useful if your spec type is not officially supported.
+Define the api specification by uploading a file, or by fetching the specification from a URL. If you chose to upload a file the accepted file extensions are listed below by file type vs service specification type. Any uploaded file may also be uploaded as an unstructured type, this is useful if your specification type is not officially supported.
 
 |           |   OAS2   |           |   OAS3   |           | Protobuf |           |   WSDL   |           |
 | --------- | :------: | :-------: | :------: | :-------: | :------: | :-------: | :------: | :-------: |
@@ -27,13 +25,7 @@ Define the api specification by uploading a file, or by fetching the spec from a
 | .proto    |    NO    |    NO     |    NO    |    NO     |   YES    |    YES    |    NO    |    NO     |
 | .xml      |    NO    |    NO     |    NO    |    NO     |    NO    |    NO     |    NO    |    YES    |
 
-![fileUploadTruthTable](/Images/central/add_api_service/fileUploadTruthTable.png)
-
-**REVIEWERS: DO WE WANT THE IMAGE OR THE MARKDOWN TABLE?**
-
-We will automatically parse the file and set the `Specification Type' on upload. You can choose to overwrite this choice by simply selecting a different type. If your combination is not supported or you have an example of a combination that is incorrectly detected please let us know.
-
-![importApiSpec](/Images/central/add_api_service/importApiSpec.png)
+On upload the file will be automatically parsed and the the recommended `Specification Type' set. Optionally, if the recommended specification type is incorrect, you can override the selection by choosing a different specification type.
 
 ### Step 2: Confirm Information
 
@@ -43,8 +35,6 @@ We will automatically parse the file and set the `Specification Type' on upload.
 * Tags are used to group assets, making it easier to find assets faster.
 * Attributes are key and value pairs used for extending functionality and integrations with third party systems.
 * Service Image now has an improved crop that will resize the selection and maintain the correct aspect ratio.
-
-![confirmInformation](/Images/central/add_api_service/confirmInformation.png)
 
 ### Step 3: Submit
 
