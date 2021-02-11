@@ -11,7 +11,7 @@ description: All of your environments displayed in one place.
 The environments page contains all of your environments in a searchable and sortable list. This list contains:
 
 * Axway Cloud SaaS environment
-* Environments using a API service mesh gateway
+* Environments using an API service mesh gateway
 * Environments using the API service model
     * AWS Gateway environments
     * API Manager environments
@@ -32,10 +32,10 @@ Each environment in the list contains some basic information, describe as follow
 1. Title.
 2. Logical name.
 3. An icon.
-4. The connection status of any AWS Gateway or API Manager discovery and traceability agents that you have connected to the environment. It will display MANUAL SYNC if there is not an agent connected.
+4. The connection status of any AWS Gateway or API Manager discovery and traceability agents that you have connected to the environment. This will display MANUAL SYNC if there is no agent connected.
 5. Description.
 6. Tags.
-7. The number of API service assets housed in the environment.
+7. The number of assets, API services, housed in the environment.
 8. The user who last modified the environment, and when.
 9. Menu with an option to delete the environment.
 
@@ -43,12 +43,11 @@ You can click the title or logical name of the environment to view additional de
 
 ## View environment details
 
-For environments created using the API service model, the details page lists the title of the environment along with the status of any connected discovery and traceability agents; and sections Environment Information, Activity Report, and Services Table.
+For environments created using the API service model, the following are shown:
 
-For more information about other types of environments, see:
-
-* [Mesh Environment Management](/docs/central/mesh_management/)
-* [Axway Cloud SaaS: Get Started](/docs/central/quickstart/)
+* The title of the environment
+* The status of any connected discovery and traceability agents
+* Sections **Environment Information**, **Activity Report**, and **Services**.
 
 ![Environment Details Page](/Images/central/EnvironmentDetailsPage.png)
 
@@ -57,17 +56,26 @@ For more information about other types of environments, see:
     * Services: The total count of API services represented in the environment.
     * Catalog Items: The total count of published catalog items.
     * Subscriptions: The total count of subscribers to all the published catalog items.
-* **Services Table**: This table is a representation of all of the API services that exist within the environment. It is sortable by title, logical name, and when the service was created or last modified. You can search by title, name, or tag. For each API service, it shows the number of versions, the user who last modified the API service, and when. Click a API service from the list to see its details.
+* **Services**: This section shows all API services that exist within the environment. It is sortable by title, logical name, and when the service was created or last modified. You can search by title, name, or tag. For each API service, it shows the number of versions, the user who last modified the API service, and when.
 
-## Delete a API Service
+For more information about other types of environments, see:
 
-To delete a API service, click the **Ellipsis** icon, at the far right of the API service's row, then click **Delete** on the menu that is shown.
+* [Mesh Environment Management](/docs/central/mesh_management/)
+* [Axway Cloud SaaS: Get Started](/docs/central/quickstart/)
 
-## View the details of an API Service
+### Delete an API Service
 
-To view the details of your API Service and its versions, click a API service from the **Service Table** list.
+To delete an API service:
 
-Select which version of your API service to view by using the dropdown selector located beside the name of your API service. The most recent version is displayed by default.
+1. Click the **Ellipsis** icon at the far right of the API service's row.
+2. Click **Delete** on the menu that is shown.
+
+### View the details of an API Service
+
+To view the details of your API Service and its versions:
+
+1. Click an API service from the list.
+2. Choose a version from the **Version** dropdown menu. The most recent version is displayed by default.
 
 ![Service Details Page](/Images/central/ServiceDetailsPage.png)
 
@@ -83,6 +91,10 @@ The following describes the sections on the API Service details page:
 * **Endpoints tab**: Contains a table listing the URLs pointing to deployed instances of the API service.
 * **Catalog Items tab**: Contains a table listing both successfully published and unpublished items in the Unified Catalog. Each entry contains the state of the item (PUBLISHED, UNPUBLISHED, or IN ERROR).
 
-## Delete endpoints and catalog items
+### Delete endpoints and catalog items
 
-To delete an endpoint or catalog item, click the **Ellipsis** icon, at the far right of the item's row, then click **Delete** on the menu that is shown.
+To delete an **Endpoint** or a **Catalog item**:
+
+1. Click the relevant tab
+2. Click the **Ellipsis** icon at the far right of the item's row
+3. Click **Delete** on the menu that is shown.
