@@ -8,7 +8,7 @@ description: Understand environments in a topology, what they are, and what can 
 
 {{< alert title="Public beta" color="warning" >}}This feature is currently in **public beta** and not yet available for production use.{{< /alert >}}
 
-Within topology, environments represent a group of assets discovered from a gateway, a repository, or anything manually added to the environment. These grouped assets (for example, API services, webhooks, secrets) are displayed in AMPLIFY Central. Environments are at the highest hierarchical level, and all assets are scoped within.
+Within topology, environments represent a group of assets discovered from a gateway, a repository, or anything manually added to the environment. These grouped assets (API services, webhooks, secrets) are displayed in AMPLIFY Central. Environments are at the highest hierarchical level, and all assets are scoped within.
 
 The following is an example of a simple environment with an API service asset:
 
@@ -21,7 +21,9 @@ The following is an example of a simple environment with an API service asset:
     * Secrets
 ```
 
-The API services, webhooks, and secrets in the example all have a hard dependency to the environment. _If the environment is deleted all assets within the environment will also be deleted._ The same hard dependency applies to all child assets. Another example, if the version within the API service is deleted, the endpoint will also be deleted but not the API service.
+The API services, webhooks, and secrets in the example all have a hard dependency to the environment. If the environment is deleted all assets within the environment will also be deleted. The same hard dependency applies to all child assets.
+
+Another example is, if a version within the API service is deleted, its endpoint will also be deleted, but not the API service.
 
 The relationship between API service assets, webhooks, and secrets is a soft dependency. If a webhook is deleted, neither of the other two will be affected. However, this may break integrations where the webhook was being used, for example, in a catalog item.
 
@@ -29,7 +31,7 @@ You can combine assets within an environment to create catalog items that consum
 
 ## Synchronize your environment with a gateway
 
-Using agents is the recommended way to add API service assets to your environment. When a discovery agent is installed on your gateway, the agent will auto-discover API service assets and add them to your environment in AMPLIFY Central. The traceability agent will send API traffic logs from your gateway to AMPLIFY Central, where you can then view and analyze the logs.
+Using agents is the recommended way to add API services to your environment. When a discovery agent is installed on your gateway, the agent will automatically discover API service assets and add them to your environment in AMPLIFY Central. The traceability agent will send API traffic logs from your gateway to AMPLIFY Central, where you can then view and analyze the logs.
 
 For more information about the agents, see:
 
